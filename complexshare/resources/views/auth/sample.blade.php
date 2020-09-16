@@ -1,13 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<head>
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-  <title>Sign in</title>
-</head>
+
 
 <div class="container">
     <div class="row justify-content-center">
@@ -61,12 +55,12 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="submit">
+                                <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="forgot" href="{{ route('password.request') }}">
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
@@ -79,5 +73,3 @@
     </div>
 </div>
 @endsection
-
-

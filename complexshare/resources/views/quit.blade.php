@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Quit') }}</div>
+                <div class="card-header">{{ __('退会') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('quit.delete') }}">
@@ -35,8 +35,8 @@
                                 <p>「退会」ボタンを押すと退会処理を行います。本当に退会しますか？</p>
                             </div>
                             <div class="col-md-8 offset-md-2 text-md-center">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Quit') }}
+                                <button type="submit" class="submit">
+                                    {{ __('退会') }}
                                 </button>
                             </div>
                         </div>
