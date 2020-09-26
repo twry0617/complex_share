@@ -12,26 +12,29 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('top');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'quit'], function(){
+Route::get('/', 'QuitController@index')->name('quit');
+Route::post('/', 'QuitController@delete')->name('quit.delete');
+});
 
 
-Route::get('/quit', 'QuitController@index')->name('quit');
-
-Route::post('/quit', 'QuitController@delete')->name('quit.delete');
-
-Route::get('/article', 'ArticleController@index')->name('top');
-
-Route::resource('articles', 'ArticleController', ['only' => ['create', 'store', 'show', 'edit', 'update', 'destroy']]);
+Route::resource('articles', 'ArticleController', ['only' => ['index','create', 'store', 'show', 'edit', 'update', 'destroy']]);
 
 Route::resource('comments', 'CommentsController', ['only' => ['store']]);
 
-Route::post('/articles/{articles}/likes', 'LikesController@store');
+Route::post('articles/{articles}/likes', 'LikesController@store');
 
-Route::post('/articles/{articles}/likes/{like}', 'LikesController@destroy');
+Route::post('{articles}/likes/{like}', 'LikesController@destroy');
 
-Route::get('/mypage' , 'MypageController@index');
+Route::get('mypage' , 'MypageController@index');
+
+Route::group(['prefix' => 'chat','middleware'=> 'auth'], function (){
+    Route::post('show', 'ChatController@show')->name('chat.show');
+    Route::post('chat', 'ChatController@chat')->name('chat.chat');
+    Route::get('index', 'ChatController@index')->name('chat.index');
+});

@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Article;
-use App\User;
+use App\Entities\Article;
+use App\Entities\User;
 
 class CommentsController extends Controller
 {
-    public function store(Request $request){
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function store(Request $request)
+    {
 
         $params = $request->validate([
             'user_id' => 'required|exists:users,id',
@@ -19,6 +26,6 @@ class CommentsController extends Controller
         $article = Article::findOrFail($params['article_id']);
         $article->comments()->create($params);
 
-        return redirect()->route('articles.show' ,['article' => $article]);
+        return redirect()->route('articles.show', ['article' => $article]);
     }
 }

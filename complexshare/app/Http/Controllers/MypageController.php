@@ -2,22 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
+use App\Entities\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\User;
-use App\Like;
+use App\Entities\User;
+use App\Entities\Like;
+use App\Entities\Mypage;
 
 
 
 class MypageController extends Controller
 
 {
-    public function index(User $user, Like $like)
+    public function index()
     {
-        $users = $user->all();
-        
+        //$user_id = Auth::id();
 
-        return view('auth.mypage', ['likes' => $likes], ['users' => $users]);
+        $user = Auth::user();
+        //$user = Auth::user()->with([
+            //'articles' => function ($query) {
+                //$query->orderBy('created_at', 'desc');
+            //},
+           // 'articles',
+           // 'articles.likes',
+            //'articles.user'
+        //])->get()->find($user_id);
+
+        $articles = Article::all();
+
+        return view('auth.mypage', compact('user', 'articles'));
     }
 }
