@@ -1,6 +1,6 @@
-@extends('layouts.app');
+@extends('layouts.app')
 
-@section('content');
+@section('content')
 <div class="container mt-4">
     <div class="border p-4">
         <h1 class="h5 mb-4">
@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="mt-5">
-                    <a class="submit" href="/article">
+                    <a class="submit" href="/articles">
                         キャンセル
                     </a>
 

@@ -38,6 +38,11 @@
                                 <button type="submit" class="submit">
                                     {{ __('退会') }}
                                 </button>
+
+                                <button type="submit" class="submit">
+                                    <a href="/articles">キャンセル</a>
+                                </button>
+
                             </div>
                         </div>
                     </form>

@@ -1,21 +1,63 @@
 @extends('layouts.app')
 
 @section('content')
-<div class='contaniner mt-4'>
+<div class="container-lg">
+    <div class='col-lg-6 col-12 mx-auto my-4'>
+        <div class='card'>
+            <div class="card-body">
 
-    <div class='border p-4'>
-        <h1 class="h5 mb-4">
-            {{$article->title}}
-        </h1>
+                <h1 class="h5 mb-4">
+                    {{$article->title}}
+                </h1>
 
-        <p class="mb-5">
-            {!! nl2br(e($article->body)) !!}
-        </p>
+                <p class="mb-5">
+                    {!! nl2br(e($article->body)) !!}
+                </p>
+            </div>
+            @if(Auth::user()->id == $article->user_id)
+            <div class="mb-4 text-right">
+                <a class="btn btn-primary" href="{{ route('articles.edit', ['article' => $article]) }}">
+                    編集する
+                </a>
+                <form style="display: inline-block;" method="POST" action="{{ route('articles.destroy', ['article' => $article]) }}">
+                    @method('DELETE')
+                    @csrf
+                    <button class="btn btn-danger">削除する</button>
+                    @endif
 
+
+                </form>
+            </div>
+        </div>
+
+
+        @forelse($article->comments as $comment)
+
+        <div class="border-top p-4">
+            <time class="text-secondary">
+                {{$comment->created_at->format('Y.m.d H:i')}}
+
+            </time>
+            <p class="mt-2">
+                {!! nl2br(e($comment->body)) !!}
+            </p>
+            @if(Auth::user()->id == $comment->user_id)
+            <form style="display: inline-block;" method="POST" action="{{ route('comments.destroy', ['comment' => $comment]) }}">
+                    @method('DELETE')
+                    @csrf
+                    <button class="btn btn-danger">削除する</button>
+                    @endif
+
+
+                </form>
+
+        </div>
+
+        @empty
+        <p>まだコメントはありません</p>
+        @endforelse
         <section>
-            <h2 class="h5 mb-4">
-                コメント
-            </h2>
+
 
             <form class="mb-4" method="POST" action="{{ route('comments.store') }}">
                 @csrf
@@ -33,10 +75,10 @@
                     @endif
                 </div>
                 <div class="mt-4">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="submit">
                         コメントする
                     </button>
-                    <a href="/article" class="btn btn-primary">戻る</a>
+                    <a href="/articles" class="submit">戻る</a>
                 </div>
             </form>
             @if (Auth::check())
@@ -54,26 +96,10 @@
             {!! Form::close() !!}
             @endif
             @endif
-            @forelse($article->comments as $comment)
-
-            <div class="border-top p-4">
-                <time class="text-secondary">
-                    {{$comment->created_at->format('Y.m.d H:i')}}
-
-                </time>
-                <p class="mt-2">
-                    {!! nl2br(e($comment->body)) !!}
-                </p>
-
-            </div>
-
-            @empty
-            <p>まだコメントはありません</p>
-            @endforelse
         </section>
+
+
+
     </div>
 </div>
 @endsection
-
-
-</section>
