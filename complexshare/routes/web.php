@@ -25,7 +25,7 @@ Route::post('/', 'QuitController@delete')->name('quit.delete');
 
 Route::resource('articles', 'ArticleController', ['only' => ['index','create', 'store', 'show', 'edit', 'update', 'destroy']]);
 
-Route::resource('comments', 'CommentsController', ['only' => ['store']]);
+Route::resource('comments', 'CommentsController', ['only' => ['store', 'destroy']]);
 
 Route::post('articles/{articles}/likes', 'LikesController@store');
 
@@ -33,8 +33,10 @@ Route::post('{articles}/likes/{like}', 'LikesController@destroy');
 
 Route::get('mypage' , 'MypageController@index');
 
-Route::group(['prefix' => 'chat','middleware'=> 'auth'], function (){
-    Route::post('show', 'ChatController@show')->name('chat.show');
-    Route::post('chat', 'ChatController@chat')->name('chat.chat');
-    Route::get('index', 'ChatController@index')->name('chat.index');
-});
+
+Route::get('home' , 'HomeController@index');
+
+
+Route::get("posts", 'PostController@index')->name('post.index');
+Route::post("posts/create", 'PostController@create')->name('post.create');
+
