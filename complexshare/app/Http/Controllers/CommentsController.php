@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Entities\Article;
 use App\Entities\User;
+use App\Entities\Comment;
 
 class CommentsController extends Controller
 {
@@ -27,5 +28,12 @@ class CommentsController extends Controller
         $article->comments()->create($params);
 
         return redirect()->route('articles.show', ['article' => $article]);
+    }
+
+    public function destroy(Comment $comment)
+    {
+        $comment->delete();
+
+        return redirect()->route('articles.index');
     }
 }

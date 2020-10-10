@@ -81,7 +81,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-
+        //$this->authorize('edit', $article);
         return view('articles.edit', ['article' => $article]);
     }
     /**
@@ -93,7 +93,6 @@ class ArticleController extends Controller
      */
     public function update(Article $article, ArticleRequest $request)
     {
-
         $article->fill($request->all())->save();
 
         return redirect()->route('articles.show', ['article' => $article]);
@@ -106,7 +105,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-
+        $this->authorize('delete', $article);
         $article->delete();
 
         return redirect()->route('articles.index');
